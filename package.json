@@ -1,7 +1,7 @@
 {
 	"name": "@atomico/rollup-pack",
-	"version": "0.0.0",
-	"description": "This plugin allows you to import the css content as a module",
+	"version": "0.1.0",
+	"description": "rollup preconfiguration, used by Atomico",
 	"main": "index.js",
 	"source": "src/index.js",
 	"publishConfig": {
@@ -23,7 +23,7 @@
 	"author": "Uppercod",
 	"license": "ISC",
 	"dependencies": {
-		"@atomico/rollup-plugin-input-html": "^0.3.0",
+		"@atomico/rollup-plugin-input-html": "^0.4.0",
 		"@atomico/rollup-plugin-sizes": "^1.0.3",
 		"rollup-plugin-node-resolve": "^5.0.1",
 		"rollup-plugin-terser": "^5.0.0"

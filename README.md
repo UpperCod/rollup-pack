@@ -10,8 +10,8 @@ The process is simple and is done thanks to [@atomico/rollup-plugin-input-html](
 
 through the process 2 bundle directories are generated:
 
-1. `./demo`: copy the html and all its dependencies thanks to [rollup-plugin-node-resolve](https://github.com/rollup/rollup-plugin-node-resolve) and [@atomico/rollup-plugin-input-html](https://github.com/atomicojs/rollup-plugin-input-html).
-2. `./dist` : copy only the js.
+1. `./dist`: copy the html and all its dependencies thanks to [rollup-plugin-node-resolve](https://github.com/rollup/rollup-plugin-node-resolve) and [@atomico/rollup-plugin-input-html](https://github.com/atomicojs/rollup-plugin-input-html).
+2. `./lib` : copy alone the js of export.
 
 In both formats the cost of each bundle is taught thanks to [@atomico/rollup-plugin-sizes](https://github.com/atomicojs/rollup-plugin-sizes).
 
@@ -30,7 +30,7 @@ let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
 let defaultOptions = {
 	dirDist: "./dist",
-	dirDemo: "./demo",
+	dirDemo: "./lib",
 	minifyDist: false,
 	minifyDemo: true,
 	showSizes: true,

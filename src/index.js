@@ -7,13 +7,13 @@ let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
 let defaultOptions = {
 	dirDist: "./dist",
-	dirDemo: "./demo",
-	minifyDist: false,
-	minifyDemo: true,
+	dirLib: "./lib",
+	minifyDist: true,
+	minifyLib: true,
 	showSizes: true,
 	plugins: [],
 	pluginsDist: [],
-	pluginsDemo: [],
+	pluginsLib: [],
 	onwarn(message) {
 		if (ignoreLog.indexOf(message.code) > -1) return;
 		console.error(message);
@@ -22,25 +22,11 @@ let defaultOptions = {
 
 export default function pack(input = "*.html", options) {
 	options = { ...defaultOptions, ...options };
-	return [
-		{
-			input,
-			output: {
-				dir: options.dirDemo,
-				sourcemap: true,
-				format: "esm"
-			},
-			onwarn: options.onwarn,
-			plugins: [
-				inputHTML(),
-				resolve(),
-				...options.pluginsDemo,
-				...options.plugins,
-				...(options.minifyDemo ? [terser()] : []),
-				...(options.showSizes ? [sizes()] : [])
-			]
-		},
-		{
+
+	let bundles = [];
+
+	if (options.dirDist) {
+		bundles.push({
 			input,
 			output: {
 				dir: options.dirDist,
@@ -49,14 +35,36 @@ export default function pack(input = "*.html", options) {
 			},
 			onwarn: options.onwarn,
 			plugins: [
-				inputHTML({
-					html: false
-				}),
-				options.plugins,
+				inputHTML(),
+				resolve(),
 				...options.pluginsDist,
+				...options.plugins,
 				...(options.minifyDist ? [terser()] : []),
 				...(options.showSizes ? [sizes()] : [])
 			]
-		}
-	];
+		});
+	}
+
+	if (options.dirLib) {
+		bundles.push({
+			input,
+			output: {
+				dir: options.dirLib,
+				sourcemap: true,
+				format: "esm"
+			},
+			onwarn: options.onwarn,
+			plugins: [
+				inputHTML({
+					createHTML: false
+				}),
+				options.plugins,
+				...options.pluginsLib,
+				...(options.minifyLib ? [terser()] : []),
+				...(options.showSizes ? [sizes()] : [])
+			]
+		});
+	}
+
+	return bundles;
 }
