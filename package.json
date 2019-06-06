@@ -1,0 +1,34 @@
+{
+	"name": "@atomico/rollup-pack",
+	"version": "0.0.0",
+	"description": "This plugin allows you to import the css content as a module",
+	"main": "index.js",
+	"source": "src/index.js",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "rollup -c ",
+		"prepare": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/atomicojs/rollup-pack"
+	},
+	"keywords": [
+		"css",
+		"shadowDom",
+		"jsx"
+	],
+	"author": "Uppercod",
+	"license": "ISC",
+	"dependencies": {
+		"@atomico/rollup-plugin-input-html": "^0.3.0",
+		"@atomico/rollup-plugin-sizes": "^1.0.3",
+		"rollup-plugin-node-resolve": "^5.0.1",
+		"rollup-plugin-terser": "^5.0.0"
+	},
+	"devDependencies": {
+		"rollup": "^1.14.2"
+	}
+}
