@@ -5,12 +5,14 @@ import { terser } from "rollup-plugin-terser";
 
 let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
+let isDev = process.env.ROLLUP_WATCH;
+
 let defaultOptions = {
 	dirDist: "./dist",
 	dirLib: "./lib",
-	minifyDist: true,
-	minifyLib: true,
-	showSizes: true,
+	minifyDist: !isDev,
+	minifyLib: !isDev,
+	showSizes: !isDev,
 	plugins: [],
 	pluginsDist: [],
 	pluginsLib: [],
@@ -58,8 +60,8 @@ export default function pack(input = "*.html", options) {
 				inputHTML({
 					createHTML: false
 				}),
-				options.plugins,
 				...options.pluginsLib,
+				options.plugins,
 				...(options.minifyLib ? [terser()] : []),
 				...(options.showSizes ? [sizes()] : [])
 			]
