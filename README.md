@@ -31,9 +31,9 @@ let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 let defaultOptions = {
 	dirDist: "./dist",
 	dirDemo: "./lib",
-	minifyDist: false,
-	minifyDemo: true,
-	showSizes: true,
+	minifyDist: !isDev,
+	minifyDemo: !isDev,
+	showSizes: !isDev,
 	plugins: [],
 	pluginsDist: [],
 	pluginsDemo: [],
