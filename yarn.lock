@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@atomico/rollup-plugin-input-html@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@atomico/rollup-plugin-input-html/-/rollup-plugin-input-html-0.4.0.tgz#5b1669aa03172fb15e17e8be44ead8d719e2ac75"
-  integrity sha512-zNXAfPMAeAcuLAgbFHVAfEFzWW5bzE1BcGGMlelqi5U+zc5vHgW/QRpzJUwOFP4JAfYsY6CkJr03rqtYMmon3Q==
+"@atomico/rollup-plugin-input-html@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@atomico/rollup-plugin-input-html/-/rollup-plugin-input-html-0.4.1.tgz#10fcc9506002d3d6e89b2b39b206d5801b700196"
+  integrity sha512-RMnB+Rq6DN43Hxk7LjI7cGro8WSqm388ubqaP6GnpmqjWpYRmLv0ocpaxEBku0EHpBsCSWLJhO00WSiefpqlLQ==
   dependencies:
     fast-glob "^2.2.7"
     rollup-pluginutils "^2.7.1"

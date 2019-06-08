@@ -6,6 +6,20 @@ var inputHTML = _interopDefault(require('@atomico/rollup-plugin-input-html'));
 var resolve = _interopDefault(require('rollup-plugin-node-resolve'));
 var sizes = _interopDefault(require('@atomico/rollup-plugin-sizes'));
 var rollupPluginTerser = require('rollup-plugin-terser');
+var fs = _interopDefault(require('fs'));
+var path = _interopDefault(require('path'));
+
+function getPkg() {
+	try {
+		let pkg = fs.readFileSync(
+			path.resolve(process.cwd(), "package.json"),
+			"utf8"
+		);
+		return JSON.parse(pkg);
+	} catch (e) {
+		throw new Error("does not locate the package.json");
+	}
+}
 
 let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
@@ -29,6 +43,9 @@ let defaultOptions = {
 function pack(input = "*.html", options) {
 	options = { ...defaultOptions, ...options };
 
+	let { dependencies } = getPkg();
+	let external = Object.keys(dependencies);
+
 	let bundles = [];
 
 	if (options.dirDist) {
@@ -51,8 +68,9 @@ function pack(input = "*.html", options) {
 		});
 	}
 
-	if (options.dirLib) {
+	if (!isDev && options.dirLib) {
 		bundles.push({
+			external,
 			input,
 			output: {
 				dir: options.dirLib,
@@ -64,8 +82,9 @@ function pack(input = "*.html", options) {
 				inputHTML({
 					createHTML: false
 				}),
+				resolve(),
 				...options.pluginsLib,
-				options.plugins,
+				...options.plugins,
 				...(options.minifyLib ? [rollupPluginTerser.terser()] : []),
 				...(options.showSizes ? [sizes()] : [])
 			]

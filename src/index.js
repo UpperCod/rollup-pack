@@ -2,6 +2,7 @@ import inputHTML from "@atomico/rollup-plugin-input-html";
 import resolve from "rollup-plugin-node-resolve";
 import sizes from "@atomico/rollup-plugin-sizes";
 import { terser } from "rollup-plugin-terser";
+import getPkg from "./getPkg.js";
 
 let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
@@ -25,6 +26,9 @@ let defaultOptions = {
 export default function pack(input = "*.html", options) {
 	options = { ...defaultOptions, ...options };
 
+	let { dependencies } = getPkg();
+	let external = Object.keys(dependencies);
+
 	let bundles = [];
 
 	if (options.dirDist) {
@@ -47,8 +51,9 @@ export default function pack(input = "*.html", options) {
 		});
 	}
 
-	if (options.dirLib) {
+	if (!isDev && options.dirLib) {
 		bundles.push({
+			external,
 			input,
 			output: {
 				dir: options.dirLib,
@@ -60,8 +65,9 @@ export default function pack(input = "*.html", options) {
 				inputHTML({
 					createHTML: false
 				}),
+				resolve(),
 				...options.pluginsLib,
-				options.plugins,
+				...options.plugins,
 				...(options.minifyLib ? [terser()] : []),
 				...(options.showSizes ? [sizes()] : [])
 			]
