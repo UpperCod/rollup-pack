@@ -1,10 +1,11 @@
-import inputHTML from "@atomico/rollup-plugin-input-html";
 import resolve from "rollup-plugin-node-resolve";
 import sizes from "@atomico/rollup-plugin-sizes";
 import { terser } from "rollup-plugin-terser";
-import getPkg from "./getPkg.js";
 
-let ignoreLog = ["CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
+import getPkg from "./getPkg.js";
+import plugin from "./plugin/index.js";
+
+let ignoreLog = ["EMPTY_BUNDLE", "CIRCULAR_DEPENDENCY", "UNRESOLVED_IMPORT"];
 
 let isDev = process.env.ROLLUP_WATCH;
 
@@ -41,7 +42,7 @@ export default function pack(input = "*.html", options) {
 			},
 			onwarn: options.onwarn,
 			plugins: [
-				inputHTML(),
+				plugin(),
 				resolve(),
 				...options.pluginsDist,
 				...options.plugins,
@@ -62,7 +63,7 @@ export default function pack(input = "*.html", options) {
 			},
 			onwarn: options.onwarn,
 			plugins: [
-				inputHTML({
+				plugin({
 					createHTML: false
 				}),
 				resolve(),

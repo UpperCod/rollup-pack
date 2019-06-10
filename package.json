@@ -1,6 +1,6 @@
 {
 	"name": "@atomico/rollup-pack",
-	"version": "0.1.5",
+	"version": "0.1.8",
 	"description": "rollup preconfiguration, used by Atomico",
 	"main": "index.js",
 	"source": "src/index.js",
@@ -23,10 +23,13 @@
 	"author": "Uppercod",
 	"license": "ISC",
 	"dependencies": {
-		"@atomico/rollup-plugin-input-html": "^0.4.1",
 		"@atomico/rollup-plugin-sizes": "^1.0.3",
+		"fast-glob": "^2.2.7",
+		"js-yaml": "^3.13.1",
+		"marked": "^0.6.2",
 		"rollup-plugin-node-resolve": "^5.0.1",
-		"rollup-plugin-terser": "^5.0.0"
+		"rollup-plugin-terser": "^5.0.0",
+		"rollup-pluginutils": "^2.8.1"
 	},
 	"devDependencies": {
 		"rollup": "^1.14.2"
